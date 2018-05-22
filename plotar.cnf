@@ -1,0 +1,197 @@
+startRealTimeMille = 1275415239444.0
+stopRealTimeMille  = 1275417007550.0 
+startSimulatedTimeMille = 0.0 
+stopSimulatedTimeMille = 1795255.0
+
+INITIAL_SIMULATION_TIME_RATE = 20
+ERROR_TRIGGER = 0.005
+MAX_ERROR_TRIGGER = 0.01
+
+# Y axis limits
+
+Error_Level = 6
+Bigest_Error_Level = 6
+Rate = 2
+sum_of_errors = 10000
+simulated_time = 30
+delay = 10000
+time_step = 10000
+information_numbers = 10000
+
+
+
+timeMinutes(milliseconds, startTimeMiliseconds) = (milliseconds-startTimeMiliseconds)/(60*1000)
+timeMinutes2(milliseconds) = (milliseconds)/(60*1000)
+
+set xrange [0:((stopRealTimeMille - startRealTimeMille)/60000.0)]
+#set xrange [10.0:20.0]
+set datafile separator";" 
+set terminal png size 800,600
+set grid
+set key left box
+set xlabel "Real Time (minutes)"
+#set sample 2
+
+
+#############################
+#BehaviourRegister.csv      #
+#############################
+
+#
+# BehaviourRegister - Error Level
+#
+set output "ErrorLevel-BehaviourRegister.png"
+set yrange [0:(Error_Level)]
+set ylabel "Error Level"
+#set title "Error Level & Real Time"
+plot "BehaviourRegister.csv" using (($3 - startRealTimeMille )/60000.0):5 index 0 title "Error Level From singles Behaviours Control" with lines,"BehaviourRegister.csv" using (($3 - startRealTimeMille )/60000.0):5 index 0 title "Error Level From singles Behaviours Control" with dots, "BehaviourRegister.csv" using (($3 - startRealTimeMille )/60000.0):(MAX_ERROR_TRIGGER) title "MAX_ERROR_TRIGGER" with lines, "BehaviourRegister.csv" using (($3 - startRealTimeMille )/60000.0):(ERROR_TRIGGER)  title "ERROR_TRIGGER" with lines
+
+
+#
+# BehaviourRegister - Delay
+# 
+set output "Delay-BehaviourRegister.png"
+set yrange [0:(delay)]
+set ylabel "Delay in milisseconds"
+#set title "Delay (time shifting)  & Real Time"
+plot "BehaviourRegister.csv" using (($3 - startRealTimeMille )/60000.0):($6 * (-1)) index 0  with dots, "BehaviourRegister.csv" using (($3 - startRealTimeMille )/60000.0):($6 * (-1)) index 0  with lines
+
+
+#
+# BehaviourRegister - Simulated Time (millisseconds)
+#
+set output "SimulatedTime_BehaviourRegister.png"
+#set yrange [0:((stopSimulatedTimeMille - startSimulatedTimeMille)/60000.0)]
+#set yrange [0:((stopSimulatedTimeMille - startSimulatedTimeMille)/60000.0)]
+set yrange [0:(simulated_time)]
+set ylabel "Simulated Time (minutes)"
+# set title "Simulated Time  & Real Time"
+plot "BehaviourRegister.csv" using (($3 - startRealTimeMille )/60000.0):(($4 - startSimulatedTimeMille )/60000.0)  index 0 title "Simulated Time" with lines
+
+
+#############################
+#ClockControlRegister.csv      #
+#############################
+
+# 
+# ClockControlRegister.csv - Error Level
+#
+set output "ErrorLevel-ClockControlRegister.png"
+set yrange [0.0:(Error_Level)]
+set ylabel "Error Level"
+#set title "Error Level & Real Time"
+plot "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):4 index 0  with lines, "ClockControlRegister.csv" using (($1 -startRealTimeMille )/60000.0):(MAX_ERROR_TRIGGER) with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(ERROR_TRIGGER) with lines
+
+
+#
+# ClockControlRegister.csv - Rate
+#
+set output "Rate-ClockControlRegister.png"
+set yrange [0.0:(Rate)]
+set ylabel "Rate"
+#set title "Rate & Real Time"
+plot "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):3 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+
+
+
+#############################
+#Statistics.csv      #
+#############################
+
+#
+# Statistics.csv  - Simulated Time (millisseconds)
+#
+set output "SimulatedTime_Statistics.png"
+#set yrange [0:((stopSimulatedTimeMille - startSimulatedTimeMille)/60000.0)]
+# set yrange [0:((stopSimulatedTimeMille - startSimulatedTimeMille)/60000.0)]
+set yrange [0:(simulated_time)]
+set ylabel "Simulated Time (minutes)"
+# set title "Simulated Time  & Real Time"
+plot "Statistics.csv" using (($1 - startRealTimeMille )/60000.0):(($2 - startSimulatedTimeMille )/60000.0)  index 0 title "Simulated Time" with lines
+
+
+#
+# Statistics.csv - Rate
+#
+set output "Rate-Statistics.png"
+set yrange [0.0:(Rate)]
+set ylabel "Rate"
+#set title "Rate & Real Time"
+plot "Statistics.csv" using (($1 - startRealTimeMille )/60000.0):3 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+
+
+#
+# Statistics.csv  - bigest time step
+#
+set output "BigestTimeStep-Statistics.png"
+set yrange [0.0:(time_step)]
+set ylabel "Bigest Time Step in Period"
+#set title "Time Step "
+plot "Statistics.csv" using (($1 - startRealTimeMille )/60000.0):4 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+
+
+
+
+#
+# Statistics.csv  - Bigest Error in Period
+#
+set output "BigestError-Statistics.png"
+set yrange [0.0:(Bigest_Error_Level)]
+set ylabel "Bigest Error in Period"
+#set title "Time Step "
+plot "Statistics.csv" using (($1 - startRealTimeMille )/60000.0):5 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+
+
+
+
+#
+# Statistics.csv  - Sum of Errors in period
+#
+set output "SumOfErrors-Statistics.png"
+set yrange [0.0:(INITIAL_SIMULATION_TIME_RATE)]
+set ylabel "Sum of Errors in Period"
+#set title "Time Step "
+plot "Statistics.csv" using (($1 - startRealTimeMille )/60000.0):6 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+
+
+
+
+#
+# Statistics.csv  - NR of Informations in period 
+#
+set output "NROfInformationsPeriod-Statistics.png"
+set yrange [0.0:(information_numbers)]
+set ylabel "NR of Informations in Period"
+#set title "Time Step "
+plot "Statistics.csv" using (($1 - startRealTimeMille )/60000.0):7 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+
+
+
+
+#
+# Statistics.csv  - NR of Informations with error in period
+#
+set output "NROfInformationsWithErrorPeriod-Statistics.png"
+set yrange [0.0:(information_numbers)]
+set ylabel "NR of Informations with Error in Period"
+#set title "Time Step "
+plot "Statistics.csv" using (($1 - startRealTimeMille )/60000.0):8 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+
+
+#
+# Statistics.csv  - NR of Informations with high error 
+#
+set output "NROfInformationsWithHighErrorPeriod-Statistics.png"
+set yrange [0.0:(information_numbers)]
+set ylabel "NR of Informations with High Error in Period"
+#set title "Time Step "
+plot "Statistics.csv" using (($1 - startRealTimeMille )/60000.0):9 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+
+
+
+#####################################################################################################################################################
+#bizuario:
+#set xdata time
+#set timefmt "%d/%m/%y %H:%M:%S"
+#plot "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):3 index 0 title "Rate" with lines, "ClockControlRegister.csv" using (($1 - startRealTimeMille )/60000.0):(INITIAL_SIMULATION_TIME_RATE)  with lines
+

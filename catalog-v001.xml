@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="http://jena.hpl.hp.com/2003/04/schemagen" uri="vocabularies/jenavocab.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="http://jena.hpl.hp.com/schemas/2003/03/ont-event" uri="vocabularies/ont-event.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="http://jena.hpl.hp.com/schemas/2003/03/ont-manager" uri="vocabularies/ont-manager.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="http://www.daml.org/2001/03/daml+oil" uri="etc/dig-daml-axioms.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="http://www.owl-ontologies.com/ct02.owl" uri="ct02.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="http://www.w3.org/2002/07/owl" uri="vocabularies/owl.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="shadowed:http://jena.hpl.hp.com/2003/04/schemagen" uri="etc/schemagen.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="shadowed:http://jena.hpl.hp.com/schemas/2003/03/ont-manager" uri="etc/ont-policy.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="shadowed:http://jena.hpl.hp.com/schemas/2003/03/ont-manager" uri="etc/ont-policy-test.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1425147198581" name="shadowed:http://www.w3.org/2002/07/owl" uri="etc/dig-owl-axioms.rdf"/>
+    </group>
+</catalog>
