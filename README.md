@@ -3,9 +3,6 @@ Multi-Agent Simulation Platform 1.0.4 - simulation agent are independent threads
 A central clock ensures the simulation stability and consistency.
 
 
-
-# jadeQuantitative
-This code was developed to load information from csv to a gis database. 
 It was part of an experiment described in some papers. A full copy of these are avaiable in: 
 https://www.researchgate.net/project/taming-time-tardiness-in-multiagent-based-simulations
 
